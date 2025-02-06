@@ -23,11 +23,17 @@ def get_rpi_data():
 
 
 # assembly line
+with st.sidebar:
+    st.image('https://imgs.search.brave.com/ZMF69n3XrMrrpVv0fRPRkl2RT53YMjd6MvPN5wCjhzw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvY29tbW9ucy90/aHVtYi8yLzIzL1Rl/c2NvX2xvZ28ucG5n/LzIyMHB4LVRlc2Nv/X2xvZ28ucG5n')
 
 data = get_rpi_data()
 st.line_chart(data)
 st.header("Select RPI")
+base_rent = st.slider("Select Baserent",0,100000,step = 1)
 get_rpi = st.selectbox('',list(data.keys())[::-1])
 if(get_rpi):
+    # rent calculation 
     rate = data[get_rpi]
     st.text("rpi is : "+str(rate))
+    adjusted_rent = base_rent * (1 + rate/100)
+    st.text("Adjusted rent :" + str(round(adjusted_rent)))
